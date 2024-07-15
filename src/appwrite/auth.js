@@ -2,15 +2,15 @@ import conf from "../conf/conf";
 import { Client, Account, ID } from "appwrite";
 
 export class AuthService{
-    clinet = new Client();
+    client = new Client();
     account;
 
     constructor(){
-        this.clinet
+        this.client
         .setEndpoint(conf.appwriteUrl)
         .setProject(conf.appwriteProjectId);
 
-        this.account = new Account(this.clinet)
+        this.account = new Account(this.client)
     }
 
     async createAccount({name,email,password}){
@@ -23,7 +23,7 @@ export class AuthService{
                 return userAccount;
            }
         } catch (error) {
-            throw error;
+            console.log("Appwrite service :: createAccount :: error", error);
         }
     }
 
@@ -31,15 +31,15 @@ export class AuthService{
         try {
            return await this.account.createEmailPasswordSession({email,password}) //.createEmailSession()
         } catch (error) {
-            throw error;
+            console.log("Appwrite service :: login :: error", error);
         }
     }
 
     async getCurrentUser(){
         try {
-            return await this.account.get();
+        return await this.account.get();
         } catch (error) {
-            throw error;
+            console.log("Appwrite service :: getCurrentUser :: error", error);
         }
 
         return null;
@@ -49,7 +49,7 @@ export class AuthService{
         try {
             return await this.account.deleteSessions();
         } catch (error) {
-            throw error;
+            console.log("Appwrite service :: logout :: error", error);
         }
     }
 }
