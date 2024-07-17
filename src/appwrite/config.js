@@ -142,6 +142,6 @@ export class Servive{
     }
 }
 
-const service = new Servive()
+const appwriteService = new Servive()
 
-export default service
+export default appwriteService
